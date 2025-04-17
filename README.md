@@ -1,38 +1,70 @@
-# Model Context Protocol (MCP) Runner
 
-A lightweight server that runs other MCP servers for TypingMind. This package allows you to run a local server that communicates with the TypingMind API using the MCP.
+# MCP Connector
 
-## Installation
+**MCP Connector** is a lightweight server that can run and manage multiple Model Context Protocol (MCP) servers, specifically designed to integrate with [TypingMind](https://www.typingmind.com/mcp). It provides an easy way to run MCP servers on your local computer or a remote server, making it possible to connect your custom AI models or tools with TypingMind through a simple REST API.
 
-You can run this package directly using npx:
+---
+
+## How to Run on Your Local Device
+
+You can quickly start the MCP Connector using `npx` (no install required):
 
 ```bash
 npx @typingmind/mcp <auth-token>
 ```
+- Replace `<auth-token>` with your authentication token provided by TypingMind.
 
-## Requirements
+Keep this terminal window open while you use TypingMind.
 
-- Node.js 14 or later
-- An internet connection
-- One of the following ports available: 50880 to 50889
+---
 
-## Usage
+## How to Run on a Server
 
-1. Run the command provided by TypingMind:
+If you prefer running the MCP Connector on a remote server:
+
+1. **Install Node.js** (version 14 or later).
+2. Run the server using `npx`:
+
    ```bash
    npx @typingmind/mcp <auth-token>
    ```
 
-2. Keep the server running in the background while using TypingMind.
+   Alternatively, for persistent running (e.g., after closing SSH), you may use a process manager like [pm2](https://pm2.keymetrics.io/) or `screen`/`tmux`:
+   ```bash
+   pm2 start npx -- @typingmind/mcp <auth-token>
+   ```
 
-3. The MCP server will be available at `http://localhost:<port>` where port is one of: 12757, 12758, 12759.
+---
 
-## API Endpoints
+## How to Connect to TypingMind
 
-- `/ping` - Check if the server is running
-- `/hello` - Test endpoint for connection
+To connect MCP Connector to TypingMind:
 
-All endpoints require authentication with the Bearer token provided when starting the server.
+1. Follow the instructions at [www.typingmind.com/mcp](https://www.typingmind.com/mcp).
+2. Paste your MCP Connector server address (`http://localhost:<port>` or your server’s IP address and port) and your authentication token on the TypingMind MCP integration page.
+
+---
+
+## REST API Endpoints
+
+All API endpoints require authentication via the Bearer token you provide when starting the server.
+
+| Endpoint                       | Method | Description                                      |
+|---------------------------------|--------|--------------------------------------------------|
+| `/ping`                        | GET    | Health check; returns `{ status: "ok" }`         |
+| `/start`                       | POST   | Start one or more MCP clients; body: `{ mcpServers: { ... } }` |
+| `/restart/:id`                 | POST   | Restart a specific client                        |
+| `/clients`                     | GET    | List all running MCP clients and their tools     |
+| `/clients/:id`                 | GET    | Get info about a specific client                 |
+| `/clients/:id/tools`           | GET    | List available tools for a client                |
+| `/clients/:id/call_tools`      | POST   | Call a tool for a client; body: `{ name, arguments }` |
+| `/clients/:id`                 | DELETE | Stop and delete a client                         |
+
+**Notes:**  
+- All requests need an `Authorization: Bearer <auth-token>` header.
+- Available ports: The server will choose a free port from `50880`–`50889`.
+
+---
 
 ## License
 
