@@ -15,9 +15,9 @@ if (!authToken) {
 // Start the server with the provided auth token
 server
   .start(authToken)
-  .then(({ port }) => {
+  .then(({ host, port }) => {
     console.log(
-      chalk.green(`✓ MCP runner server running on http://localhost:${port}`),
+      chalk.green(`✓ MCP runner server running on http://${host}:${port}`),
     );
     console.log(
       chalk.yellow(
