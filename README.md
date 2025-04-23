@@ -1,4 +1,3 @@
-
 # MCP Connector
 
 **MCP Connector** is a lightweight server that can run and manage multiple Model Context Protocol (MCP) servers, specifically designed to integrate with [TypingMind](https://www.typingmind.com/mcp). It provides an easy way to run MCP servers on your local computer or a remote server, making it possible to connect your custom AI models or tools with TypingMind through a simple REST API.
@@ -16,6 +15,19 @@ npx @typingmind/mcp <auth-token>
 
 Keep this terminal window open while you use TypingMind.
 
+### HTTPS Support
+
+To enable HTTPS, set the following environment variables:
+
+```bash
+CERTFILE=./path/to/certificate.crt KEYFILE=./path/to/privatekey.key npx @typingmind/mcp <auth-token>
+```
+
+- `CERTFILE`: Path to your SSL certificate file
+- `KEYFILE`: Path to your SSL private key file
+
+When both variables are set, the server will use HTTPS instead of HTTP.
+
 ---
 
 ## How to Run on a Server
@@ -27,6 +39,11 @@ If you prefer running the MCP Connector on a remote server:
 
    ```bash
    npx @typingmind/mcp <auth-token>
+   ```
+
+   To run with HTTPS:
+   ```bash
+   CERTFILE=./path/to/certificate.crt KEYFILE=./path/to/privatekey.key npx @typingmind/mcp <auth-token>
    ```
 
    Alternatively, for persistent running (e.g., after closing SSH), you may use a process manager like [pm2](https://pm2.keymetrics.io/) or `screen`/`tmux`:
