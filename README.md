@@ -79,7 +79,9 @@ All API endpoints require authentication via the Bearer token you provide when s
 
 **Notes:**  
 - All requests need an `Authorization: Bearer <auth-token>` header.
-- Available ports: The server will choose a free port from `50880`–`50889`.
+- Available ports: The server will choose port `50880` or `50881`, make sure
+these ports are available in your system. You can also use `PORT` environment
+variable to specify a different port.
 
 ---
 
