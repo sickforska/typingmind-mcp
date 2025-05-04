@@ -53,6 +53,64 @@ If you prefer running the MCP Connector on a remote server:
 
 ---
 
+## How to Run with Docker
+
+You can also run the MCP Connector using Docker.
+
+1.  **Build the Docker Image:**
+    Navigate to the project's root directory (where the `Dockerfile` is located) and run:
+    ```bash
+    docker build -t mcp-connector .
+    ```
+    *(You can replace `mcp-connector` with your preferred image tag.)*
+
+2.  **Run the Docker Container:**
+
+    *   **Basic Run (HTTP):**
+        Replace `<auth-token>` with your actual token. This command runs the container in detached mode (`-d`) and maps the container's default port `12757` to the same port on your host machine.
+        ```bash
+        docker run -d -p 12757:12757 --name mcp-connector-instance mcp-connector <auth-token>
+        ```
+
+    *   **Using a Different Port:**
+        If you need to use a different port (e.g., 8080 on the host mapped to 12345 in the container), use the `-p` flag for mapping and the `-e PORT` environment variable:
+        ```bash
+        docker run -d -p 8080:12345 -e PORT=12345 --name mcp-connector-instance mcp-connector <auth-token>
+        ```
+
+    *   **Running with HTTPS:**
+        To enable HTTPS, you need to provide the certificate and key files and set the `CERTFILE` and `KEYFILE` environment variables. Mount your host's certificate files into the container (e.g., into a `/certs` directory) and provide the paths via environment variables. Remember to map the appropriate port.
+        ```bash
+        docker run -d \
+          -p 12757:12757 \
+          -e PORT=12757 \
+          -e CERTFILE=/certs/certificate.crt \
+          -e KEYFILE=/certs/privatekey.key \
+          -v /path/to/your/certificate.crt:/certs/certificate.crt:ro \
+          -v /path/to/your/privatekey.key:/certs/privatekey.key:ro \
+          --name mcp-connector-instance \
+          mcp-connector <auth-token>
+        ```
+        *(Replace `/path/to/your/certificate.crt` and `/path/to/your/privatekey.key` with the actual paths on your host machine. The `:ro` flag mounts them as read-only.)*
+
+    *   **Viewing Logs:**
+        To see the logs from the running container:
+        ```bash
+        docker logs mcp-connector-instance
+        ```
+
+    *   **Stopping the Container:**
+        ```bash
+        docker stop mcp-connector-instance
+        ```
+
+    *   **Removing the Container:**
+        ```bash
+        docker rm mcp-connector-instance
+        ```
+
+---
+
 ## How to Connect to TypingMind
 
 To connect MCP Connector to TypingMind:
