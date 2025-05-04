@@ -3,12 +3,13 @@
 const server = require('../lib/server');
 const chalk = require('chalk');
 
-// Get auth token from command line arguments
-const authToken = process.argv[2];
+// Get auth token from command line arguments or environment variable
+const authToken = process.argv[2] || process.env.MCP_AUTH_TOKEN;
 
 if (!authToken) {
   console.error(chalk.red('Error: Authentication token is required'));
   console.log('Usage: npx @typingmind/mcp <auth-token>');
+  console.log('       OR set MCP_AUTH_TOKEN environment variable');
   process.exit(1);
 }
 
