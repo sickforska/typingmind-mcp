@@ -13,7 +13,13 @@ npx @typingmind/mcp <auth-token>
 ```
 - Replace `<auth-token>` with your authentication token provided by TypingMind.
 
-Keep this terminal window open while you use TypingMind.
+You can also provide the auth token via an environment variable:
+
+```bash
+MCP_AUTH_TOKEN=<auth-token> npx @typingmind/mcp
+```
+
+Keep the process running while you use TypingMind.
 
 ### HTTPS Support
 
