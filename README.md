@@ -9,14 +9,14 @@
 You can quickly start the MCP Connector using `npx` (no install required):
 
 ```bash
-npx @typingmind/mcp <auth-token>
+npx @typingmind/mcp@latest <auth-token>
 ```
 - Replace `<auth-token>` with your authentication token provided by TypingMind.
 
 You can also provide the auth token via an environment variable:
 
 ```bash
-MCP_AUTH_TOKEN=<auth-token> npx @typingmind/mcp
+MCP_AUTH_TOKEN=<auth-token> npx @typingmind/mcp@latest
 ```
 
 Keep the process running while you use TypingMind.
@@ -26,7 +26,7 @@ Keep the process running while you use TypingMind.
 To enable HTTPS, set the following environment variables:
 
 ```bash
-CERTFILE=./path/to/certificate.crt KEYFILE=./path/to/privatekey.key npx @typingmind/mcp <auth-token>
+CERTFILE=./path/to/certificate.crt KEYFILE=./path/to/privatekey.key npx @typingmind/mcp@latest <auth-token>
 ```
 
 - `CERTFILE`: Path to your SSL certificate file
@@ -44,17 +44,17 @@ If you prefer running the MCP Connector on a remote server:
 2. Run the server using `npx`:
 
    ```bash
-   npx @typingmind/mcp <auth-token>
+   npx @typingmind/mcp@latest <auth-token>
    ```
 
    To run with HTTPS:
    ```bash
-   CERTFILE=./path/to/certificate.crt KEYFILE=./path/to/privatekey.key npx @typingmind/mcp <auth-token>
+   CERTFILE=./path/to/certificate.crt KEYFILE=./path/to/privatekey.key npx @typingmind/mcp@latest <auth-token>
    ```
 
    Alternatively, for persistent running (e.g., after closing SSH), you may use a process manager like [pm2](https://pm2.keymetrics.io/) or `screen`/`tmux`:
    ```bash
-   pm2 start npx -- @typingmind/mcp <auth-token>
+   pm2 start npx -- @typingmind/mcp@latest <auth-token>
    ```
 
 ---
@@ -73,9 +73,9 @@ You can also run the MCP Connector using Docker.
 2.  **Run the Docker Container:**
 
     *   **Basic Run (HTTP):**
-        Replace `<auth-token>` with your actual token. This command runs the container in detached mode (`-d`) and maps the container's default port `12757` to the same port on your host machine.
+        Replace `<auth-token>` with your actual token. This command runs the container in detached mode (`-d`) and maps the container's default port `50880` to the same port on your host machine.
         ```bash
-        docker run -d -p 12757:12757 --name mcp-connector-instance mcp-connector <auth-token>
+        docker run -d -p 50880:50880 --name mcp-connector-instance mcp-connector <auth-token>
         ```
 
     *   **Using a Different Port:**
@@ -88,8 +88,8 @@ You can also run the MCP Connector using Docker.
         To enable HTTPS, you need to provide the certificate and key files and set the `CERTFILE` and `KEYFILE` environment variables. Mount your host's certificate files into the container (e.g., into a `/certs` directory) and provide the paths via environment variables. Remember to map the appropriate port.
         ```bash
         docker run -d \
-          -p 12757:12757 \
-          -e PORT=12757 \
+          -p 50880:50880 \
+          -e PORT=50880 \
           -e CERTFILE=/certs/certificate.crt \
           -e KEYFILE=/certs/privatekey.key \
           -v /path/to/your/certificate.crt:/certs/certificate.crt:ro \
