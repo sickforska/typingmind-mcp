@@ -17,10 +17,10 @@ RUN pnpm install --prod
 COPY . .
 
 # Set the default port the app will run on
-ENV PORT=12757
+ENV PORT=50880
 
-# Make port 12757 available to the world outside this container
-EXPOSE 12757
+# Make port 50880 available to the world outside this container
+EXPOSE 50880
 
 # Define the command to run the app
 CMD ["node", "bin/index.js"]

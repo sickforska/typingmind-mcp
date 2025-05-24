@@ -73,9 +73,9 @@ You can also run the MCP Connector using Docker.
 2.  **Run the Docker Container:**
 
     *   **Basic Run (HTTP):**
-        Replace `<auth-token>` with your actual token. This command runs the container in detached mode (`-d`) and maps the container's default port `12757` to the same port on your host machine.
+        Replace `<auth-token>` with your actual token. This command runs the container in detached mode (`-d`) and maps the container's default port `50880` to the same port on your host machine.
         ```bash
-        docker run -d -p 12757:12757 --name mcp-connector-instance mcp-connector <auth-token>
+        docker run -d -p 50880:50880 --name mcp-connector-instance mcp-connector <auth-token>
         ```
 
     *   **Using a Different Port:**
@@ -88,8 +88,8 @@ You can also run the MCP Connector using Docker.
         To enable HTTPS, you need to provide the certificate and key files and set the `CERTFILE` and `KEYFILE` environment variables. Mount your host's certificate files into the container (e.g., into a `/certs` directory) and provide the paths via environment variables. Remember to map the appropriate port.
         ```bash
         docker run -d \
-          -p 12757:12757 \
-          -e PORT=12757 \
+          -p 50880:50880 \
+          -e PORT=50880 \
           -e CERTFILE=/certs/certificate.crt \
           -e KEYFILE=/certs/privatekey.key \
           -v /path/to/your/certificate.crt:/certs/certificate.crt:ro \
