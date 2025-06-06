@@ -1,6 +1,15 @@
 # Use an official Node.js runtime as a parent image (slim variant for better security)
 FROM node:23-slim
 
+
+# Install Python, pip, and other dependencies
+RUN apt-get update && \
+    apt-get install -y python3 python3-pip && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install uv via pip
+RUN pip3 install uv --break-system-packages 
+
 # Set the working directory in the container
 WORKDIR /app
 
