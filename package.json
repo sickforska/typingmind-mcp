@@ -4,8 +4,7 @@
   "description": "TypingMind MCP Connector",
   "main": "proxy.js",
   "scripts": {
-    "start": "node proxy.js",
-    "mcp": "npx @typingmind/mcp@latest $MCP_AUTH_TOKEN"
+    "start": "node proxy.js"
   },
   "dependencies": {
     "@typingmind/mcp": "latest"
